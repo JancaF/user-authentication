@@ -1,5 +1,5 @@
 database:
 	# SQLite database source location
-	dsn: 'sqlite:%appDir%/../db/users.sqlite.db'
-	user:
-	password:
+	dsn: 'mysql:host=127.0.0.1;dbname=usertest'
+	user: root
+	password: root
