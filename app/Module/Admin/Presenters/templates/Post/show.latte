@@ -4,6 +4,9 @@
 
 <strong>Počet zhlédnutí:</strong> {$post->views}
 <strong>Stav:</strong> {$post->status}
+                        {$post->like}
+<strong>Like:</strong> <a n:href="handleLike! $post->id,1">Líbí se mi!</a> 
+<strong>Dislike:</strong> <a n:href="handleLike! $post->id,0">Nelíbí se mi!</a>
 <div class="status">
 <p>Status příspěvku:</p>
 {if $post->status === 'OPEN'}

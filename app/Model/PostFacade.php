@@ -53,5 +53,10 @@ final class PostFacade
             'views' => new \Nette\Database\SqlLiteral('views + 1')
         ]);
     }
+	public function updateRating(int $postId, int $like) {
+		$post = Post::find($postId);
+		$post->rating += $like;
+		$post->save();
+	}
 }
 

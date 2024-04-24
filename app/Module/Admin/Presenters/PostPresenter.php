@@ -1,5 +1,6 @@
 <?php
-namespace App\Presenters;
+namespace App\Module\Admin\Presenters;
+
 
 use Nette;
 use App\Model\PostFacade;
@@ -64,5 +65,13 @@ final class PostPresenter extends Nette\Application\UI\Presenter
     {
         return $this->facade->showPost($postId);
     }
+	public function handleLike(int $postId, int $like) {
+		if ($this->isUserLoggedIn()) {
+			$this->updateRating($postId, $like);
+		}
+		else {
+			throw new Exception('Uživatel není přihlášen.');
+		}
+	}
 }
 
