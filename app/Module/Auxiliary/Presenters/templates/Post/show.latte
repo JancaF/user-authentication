@@ -1,0 +1,54 @@
+{block content} 	
+<h2>Vložte nový příspěvek</h2>
+<p><a n:href="Home:default">← zpět na výpis příspěvků</a></p>
+
+<strong>Počet zhlédnutí:</strong> {$post->views}
+<strong>Stav:</strong> {$post->status}
+<div class="status">
+<p>Status příspěvku:</p>
+{if $post->status === 'OPEN'}
+    <div class="post-status OPEN">
+        <p>Otevřený příspěvek !</p>
+    </div>
+{elseif $post->status === 'CLOSED'}
+    <div class="post-status CLOSED">
+        <p>Uzavřený příspěvek</p>
+	</div>
+
+{elseif $post->status === 'ARCHIVED'}
+    <div class="post-status ARCHIVED">
+        <p>Archivovaný příspěvek</p>
+    </div>
+{/if}
+
+<h1 n:block="title">{$post->title}</h1>
+<div class="post">{$post->content}</div>
+<div class="date">{$post->created_at|date:'F j, Y'}</div>
+
+<a n:href="Edit:edit $post->id">Upravit příspěvek</a>
+<img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}">
+
+{if userLoggedIn}
+    <p>Vítej !</p>
+    <p>Jestliže se chceš odhlásit:</p>
+    <a href="{link 'logout'}">Logout</a>
+{else}
+    <p>Prosím přihlašte se pro zobrazení tohoto příspěvku.</p>
+    <a href="{link 'login'}">Login</a>
+{/if}
+    </div>
+{if $post->status == "OPEN" || $user->isLoggedIn() && $post->status != "ARCHIVED"}
+    <h2>Komentáře</h2>  
+    {control commentForm}
+    <div class="comments">
+	    {foreach $comments as $comment}
+		    <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
+			{$comment->name}
+		    </a></b> napsal:</p>
+
+		<div>{$comment->content}</div>
+	    {/foreach}
+    </div>
+{/if}
+
+

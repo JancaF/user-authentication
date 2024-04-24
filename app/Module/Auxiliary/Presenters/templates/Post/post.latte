@@ -1,0 +1,10 @@
+{block content}
+
+<p><a n:href="Home:default">← zpět na výpis příspěvků</a></p>
+
+<div class="date">{$post->created_at|date:'F j, Y'}</div>
+
+<h1 n:block="title">{$post->title}</h1>
+
+<div class="post">{$post->content}</div>
+<img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}">

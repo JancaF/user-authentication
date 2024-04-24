@@ -13,3 +13,15 @@ application:
 
 session:
 	expiration: 14 days
+
+di:
+	export:
+		parameters: no
+		tags: no
+
+
+
+security:
+	users:
+		admin: secret  # user 'admin', password 'secret'
+		user: secret # user 'furry', password 'ilovegays'
