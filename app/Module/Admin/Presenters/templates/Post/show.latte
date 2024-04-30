@@ -4,7 +4,7 @@
 
 <strong>Počet zhlédnutí:</strong> {$post->views}
 <strong>Stav:</strong> {$post->status}
-                        {$post->like}
+<strong>Celkové hodnocení:</strong>{$post->rating}
 <strong>Like:</strong> <a n:href="handleLike! $post->id,1">Líbí se mi!</a> 
 <strong>Dislike:</strong> <a n:href="handleLike! $post->id,0">Nelíbí se mi!</a>
 <div class="status">
