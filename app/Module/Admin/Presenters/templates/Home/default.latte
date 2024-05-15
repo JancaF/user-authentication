@@ -6,7 +6,7 @@
 			<div class="date">{$post->created_at|date:'F j, Y'}</div>
 			<div class="statusPost"><a n:href="Post:show $post->status">Status: {$post->status}</a></div>
 			<div class="viewsAdd"><a n:href="Post:show $post->views">Views: {$post->views}</a></div>
-        	<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
+        	<h2><a n:href="Post:show $post->post_id">{$post->title}</a></h2>
 			<div>{$post->content|truncate:256}</div>
 		{/if}
 	</div>

@@ -34,11 +34,14 @@ final class DashboardPresenter extends Nette\Application\UI\Presenter
 		   $articles = $this->facade->getPublicArticles($paginator->getLength(), $paginator->getOffset());
 		   $this->template->paginator = $paginator;
 	}
-	public function actionShow(int $postId) {
-	    $this->flashMessage('Nemáš právo vidět archived, kámo !');
-		$this->redirect('Homepage:');
+	public function handleLike(int $postId, int $like) {
+		if ($this->isUserLoggedIn()) {
+			$this->updateRating($postId, $like);
+		}
+		else {
+			throw new Exception('Uživatel není přihlášen.');
+		}
 	}
-
 }
 	
 
