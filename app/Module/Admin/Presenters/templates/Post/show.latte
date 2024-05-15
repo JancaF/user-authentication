@@ -4,9 +4,8 @@
 
 <strong>Počet zhlédnutí:</strong> {$post->views}
 <strong>Stav:</strong> {$post->status}
-<strong>Celkové hodnocení:</strong>{$post->rating}
-<strong>Like:</strong> <a n:href="handleLike! $post->id,1">Líbí se mi!</a> 
-<strong>Dislike:</strong> <a n:href="handleLike! $post->id,0">Nelíbí se mi!</a>
+<strong>Like:</strong> <a n:href="handleLike! $post->post_id,1">Líbí se mi!</a> 
+<strong>Dislike:</strong> <a n:href="handleLike! $post->post_id,0">Nelíbí se mi!</a>
 <div class="status">
 <p>Status příspěvku:</p>
 {if $post->status === 'OPEN'}
@@ -28,7 +27,7 @@
 <div class="post">{$post->content}</div>
 <div class="date">{$post->created_at|date:'F j, Y'}</div>
 
-<a n:href="Edit:edit $post->id">Upravit příspěvek</a>
+<a n:href="Edit:edit $post->post_id">Upravit příspěvek</a>
 <img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}">
 
 {if userLoggedIn}
