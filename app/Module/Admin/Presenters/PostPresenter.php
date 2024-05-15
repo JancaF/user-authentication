@@ -62,7 +62,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
     {
         return $this->facade->showPost($postId);
     }
-	public function handleLike(int $postId, int $like) {
+	public function handlehandleLike() {
 		if ($this->isUserLoggedIn()) {
 			$this->updateRating($postId, $like);
 		}

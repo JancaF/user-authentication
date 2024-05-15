@@ -30,7 +30,7 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 	    $this->flashMessage('Nemáš právo vidět archived, kámo !');
 		$this->redirect('Homepage:');
 	}
-	public function handlehandleLike(int $postId, int $like) {
+	public function handleLike(int $postId, int $like) {
 		if ($this->isUserLoggedIn()) {
 			$this->updateRating($postId, $like);
 		}
