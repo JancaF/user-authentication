@@ -1,0 +1,27 @@
+{block content}
+<h1>Můj blog</h1>
+<h2>Články</h2>
+	<div n:foreach="$posts as $post" class="post">
+		{if $user->isLoggedIn() || $post->status != "ARCHIVED"}
+			<div class="date">{$post->created_at|date:'F j, Y'}</div>
+			<div class="statusPost"><a n:href="Post:show $post->status">Status: {$post->status}</a></div>
+			<div class="viewsAdd"><a n:href="Post:show $post->views">Views: {$post->views}</a></div>
+        	<h2><a n:href="Post:show $post->post_id">{$post->title}</a></h2>
+			<div>{$post->content|truncate:256}</div>
+		{/if}
+	</div>
+<div class="status_write">
+<h2>Výpis statusu:</h2>
+<p>1. OPEN = Otevřený -> Viditelné pro všechny, komentáře pro všechny.</p>
+<p>2. CLOSED = Uzavřený -> Viditelné pro všechny, komentáře jedině pro přihlášené uživatele.</p>
+<p>3. ARCHIVED = Archivovaný -> Příspěvek je archivován, viditelné jedině pro přihlášené uživatele a komentáře jsou uzamčeny.</p>
+</div>
+<a n:href="Edit:create">Napsat nový příspěvek</a>
+<a n:href="Edit:create" n:if="$user->isLoggedIn()">Vytvořit příspěvek</a>
+{if $user->isLoggedIn()}<a n:href="Edit:create">Vytvořit příspěvek</a>{/if}
+<div class="archived_redirect">
+{if $post === 'ARCHIVED'}
+<a n:href="Homepage:default"></a>
+{/if}
+</div>
+{/block}

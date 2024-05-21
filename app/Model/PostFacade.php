@@ -36,12 +36,6 @@ final class PostFacade
 	public function getPostbyId($postId) {
 		return $this->database->table('posts')->get($postId);
 	}
-	public function editPost(int $postId, array $data) {
-		 $post = $this->database
-			->table('posts')
-			->get($postId);
-		$post->update($data);
-	}
 	public function insertPost(array $data) {
 		$this->template->post = $this->facade;
 		 $this->table('posts');
@@ -51,6 +45,33 @@ final class PostFacade
     {
         $this->database->table('posts')->wherePrimary($postId)->update([
             'views' => new \Nette\Database\SqlLiteral('views + 1')
+        ]);
+    }
+	public function getUserLikeStatus($userId, $postId)
+    {
+        $likeStatus = $this->database->table('rating')
+            ->where('id', $userId)
+            ->where('post_id', $postId)
+            ->fetch();
+
+        return $likeStatus ? $likeStatus->like_status : null;
+    }
+	public function likePost($userId, $postId)
+    {
+        $this->database->table('rating')->where('id', $userId)->where('post_id', $postId)->delete();
+        $this->database->table('rating')->insert([
+            'user_id' => $userId,
+            'post_id' => $postId,
+            'like_status' => 1
+        ]);
+    }
+	public function dislikePost($userId, $postId)
+    {
+        $this->database->table('rating')->where('id', $userId)->where('post_id', $postId)->delete();
+        $this->database->table('rating')->insert([
+            'user_id' => $userId,
+            'post_id' => $postId,
+            'like_status' => -1
         ]);
     }
 	public function updateRating(int $postId, int $like) {

@@ -1,0 +1,8 @@
+{block content}
+<h1>Upravit příspěvek</h1>
+<img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}">
+{if $post->image}
+    {*  tady bude img src *}
+    <a n:href="deleteImage! $post->id">Smazat obrázek</a>
+{/if}
+{control postForm}

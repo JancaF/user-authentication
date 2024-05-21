@@ -1,6 +1,30 @@
 {block content} 	
 <h2>Vložte nový příspěvek</h2>
 <p><a n:href="Home:default">← zpět na výpis příspěvků</a></p>
+{control likeForm}
+{control dislikeForm}
+    <div id="likeControls">
+        {if $likeStatus === null}
+            <form n:name="likeForm">
+                <input type="hidden" name="postId" value="{$postId}">
+                <button type="submit">Líbí se mi</button>
+            </form>
+            <form n:name="dislikeForm">
+                <input type="hidden" name="postId" value="{$postId}">
+                <button type="submit">Nelíbí se mi</button>
+            </form>
+        {elseif $likeStatus == 1}
+            <form n:name="dislikeForm">
+                <input type="hidden" name="postId" value="{$postId}">
+                <button type="submit">Nelíbí se mi</button>
+            </form>
+        {elseif $likeStatus == -1}
+            <form n:name="likeForm">
+                <input type="hidden" name="postId" value="{$postId}">
+                <button type="submit">Líbí se mi</button>
+            </form>
+        {/if}
+    </div>
 
 <strong>Počet zhlédnutí:</strong> {$post->views}
 <strong>Stav:</strong> {$post->status}
