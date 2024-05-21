@@ -58,7 +58,7 @@ final class PostFacade
     }
 	public function likePost($userId, $postId)
     {
-        $this->database->table('rating')->where('id', $userId)->where('post_id', $postId)->delete();
+        $this->database->table('rating')->where('user_id', $userId)->where('post_id', $postId)->delete();
         $this->database->table('rating')->insert([
             'user_id' => $userId,
             'post_id' => $postId,
