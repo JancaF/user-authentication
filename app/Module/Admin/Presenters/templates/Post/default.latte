@@ -19,9 +19,4 @@
 <a n:href="Edit:create">Napsat nový příspěvek</a>
 <a n:href="Edit:create" n:if="$user->isLoggedIn()">Vytvořit příspěvek</a>
 {if $user->isLoggedIn()}<a n:href="Edit:create">Vytvořit příspěvek</a>{/if}
-<div class="archived_redirect">
-{if $post === 'ARCHIVED'}
-<a n:href="Homepage:default"></a>
-{/if}
-</div>
 {/block}

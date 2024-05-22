@@ -1,8 +1,6 @@
 {block content} 	
 <h2>Vložte nový příspěvek</h2>
 <p><a n:href="Home:default">← zpět na výpis příspěvků</a></p>
-{control likeForm}
-{control dislikeForm}
     <div id="likeControls">
         {if $likeStatus === null}
             <form n:name="likeForm">
