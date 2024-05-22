@@ -16,8 +16,6 @@
 <p>2. CLOSED = Uzavřený -> Viditelné pro všechny, komentáře jedině pro přihlášené uživatele.</p>
 <p>3. ARCHIVED = Archivovaný -> Příspěvek je archivován, viditelné jedině pro přihlášené uživatele a komentáře jsou uzamčeny.</p>
 </div>
-<a n:href="Edit:create">Napsat nový příspěvek</a>
-<a n:href="Edit:create" n:if="$user->isLoggedIn()">Vytvořit příspěvek</a>
 {if $user->isLoggedIn()}<a n:href="Edit:create">Vytvořit příspěvek</a>{/if}
 <div class="archived_redirect">
 {if $post === 'ARCHIVED'}
