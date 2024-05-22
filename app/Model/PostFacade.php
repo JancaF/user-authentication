@@ -47,16 +47,17 @@ final class PostFacade
             'views' => new \Nette\Database\SqlLiteral('views + 1')
         ]);
     }
-	public function getUserLikeStatus($userId, $postId)
+    public function getUserLikeStatus($userId, $postId)
     {
         $likeStatus = $this->database->table('rating')
-            ->where('id', $userId)
+            ->where('user_id', $userId)
             ->where('post_id', $postId)
             ->fetch();
 
         return $likeStatus ? $likeStatus->like_status : null;
     }
-	public function likePost($userId, $postId)
+
+    public function likePost($userId, $postId)
     {
         $this->database->table('rating')->where('user_id', $userId)->where('post_id', $postId)->delete();
         $this->database->table('rating')->insert([
@@ -65,9 +66,10 @@ final class PostFacade
             'like_status' => 1
         ]);
     }
-	public function dislikePost($userId, $postId)
+
+    public function dislikePost($userId, $postId)
     {
-        $this->database->table('rating')->where('id', $userId)->where('post_id', $postId)->delete();
+        $this->database->table('rating')->where('user_id', $userId)->where('post_id', $postId)->delete();
         $this->database->table('rating')->insert([
             'user_id' => $userId,
             'post_id' => $postId,

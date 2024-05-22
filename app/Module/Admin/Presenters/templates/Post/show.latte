@@ -2,6 +2,7 @@
 <h2>Vložte nový příspěvek</h2>
 <p><a n:href="Home:default">← zpět na výpis příspěvků</a></p>
     <div id="likeControls">
+        <pre>{var_dump($likeStatus)}</pre> <!-- Debugging output to check the value of likeStatus -->
         {if $likeStatus === null}
             <form n:name="likeForm">
                 <input type="hidden" name="postId" value="{$postId}">

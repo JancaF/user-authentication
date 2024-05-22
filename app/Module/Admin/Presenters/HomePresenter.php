@@ -25,19 +25,6 @@ final class HomePresenter extends Nette\Application\UI\Presenter
    
 		   $articles = $this->facade->getPublicArticles($paginator->getLength(), $paginator->getOffset());
 		   $this->template->paginator = $paginator;
-
-		   $this->template->likeStatus = $likeStatus;
-
-		   if ($likeStatus) {
-			   if ($likeStatus == 1) {
-				   $this->template->showDislikeButton = true;
-			   } elseif ($likeStatus == -1) {
-				   $this->template->showLikeButton = true;
-			   }
-		   } else {
-			   $this->template->showLikeButton = true;
-			   $this->template->showDislikeButton = true;
-		   }
 	}
 	protected function createComponentLikeForm(): Form
     {

@@ -12,29 +12,45 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 	) {
 	}
 
-	public function renderShow($id, $postId): void
-	{
-		$post = $this->facade->getPostbyId($id);
-		$this->facade->addView($postId);
-	if (!$post) {
-		$this->error('Stránka nebyla nalezena');
-	}
+    public function renderShow($id, $postId): void
+    {
+        $post = $this->facade->getPostById($id);
+        $this->facade->addView($postId);
+        
+        if (!$post) {
+            $this->error('Stránka nebyla nalezena');
+        }
 
-	$this->template->post = $post;	
-	$this->template->likeStatus = $likeStatus;
+        $userId = $this->getUser()->getId();
+        $likeStatus = $this->facade->getUserLikeStatus($userId, $postId);
 
-	if ($likeStatus) {
-		if ($likeStatus == 1) {
-			$this->template->showDislikeButton = true;
-		} elseif ($likeStatus == -1) {
-			$this->template->showLikeButton = true;
-		}
-	} else {
-		$this->template->showLikeButton = true;
-		$this->template->showDislikeButton = true;
-	}
-	}
-	protected function createComponentLikeForm(): Form
+        $this->template->post = $post;
+        $this->template->likeStatus = $likeStatus;
+
+        if ($likeStatus !== null) {
+            if ($likeStatus == 1) {
+                $this->template->showDislikeButton = true;
+            } elseif ($likeStatus == -1) {
+                $this->template->showLikeButton = true;
+            }
+        } else {
+            $this->template->showLikeButton = true;
+            $this->template->showDislikeButton = true;
+        }
+    }
+    public function renderDefault($postId)
+    {
+        $userId = $this->getUser()->getId();
+        $likeStatus = $this->facade->getUserLikeStatus($userId, $postId);
+
+        $this->template->postId = $postId;
+        $this->template->likeStatus = $likeStatus;
+
+        // Debug output to verify the value of likeStatus
+        bdump($likeStatus, 'likeStatus');
+    }
+
+    protected function createComponentLikeForm(): Form
     {
         $form = new Form;
         $form->addHidden('postId');
@@ -42,7 +58,8 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         $form->onSuccess[] = [$this, 'likeFormSucceeded'];
         return $form;
     }
-	protected function createComponentDislikeForm(): Form
+
+    protected function createComponentDislikeForm(): Form
     {
         $form = new Form;
         $form->addHidden('postId');
@@ -50,7 +67,8 @@ final class PostPresenter extends Nette\Application\UI\Presenter
         $form->onSuccess[] = [$this, 'dislikeFormSucceeded'];
         return $form;
     }
-	public function likeFormSucceeded(Form $form, \stdClass $values): void
+
+    public function likeFormSucceeded(Form $form, \stdClass $values): void
     {
         $userId = $this->getUser()->getId();
         $postId = $values->postId;
@@ -59,7 +77,8 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 
         $this->redirect('this', ['postId' => $postId]);
     }
-	public function dislikeFormSucceeded(Form $form, \stdClass $values): void
+
+    public function dislikeFormSucceeded(Form $form, \stdClass $values): void
     {
         $userId = $this->getUser()->getId();
         $postId = $values->postId;
